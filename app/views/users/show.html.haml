@@ -1,0 +1,26 @@
+=image_tag @user.avatar.url(:medium)
+
+%p 
+    %b Email:
+    =@user.email
+%p 
+    %b Name:
+    =@user.name
+%p  
+    %b Lastname:
+    =@user.lastname
+%p  
+    %b Document:
+    =@user.docid
+%p  
+    %b Username:
+    =@user.username
+%p  
+    %b Pin:
+    =@user.pin
+%p  
+    %b Role:
+    =@user.role
+= link_to 'Edit', edit_user_path(@user), class:"btn btn-raised btn-default"
+\|
+= link_to 'Back', users_path, class:"btn btn-raised btn-default"

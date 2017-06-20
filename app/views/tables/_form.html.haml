@@ -1,0 +1,4 @@
+= form_for @table,builder: BootstrapFormBuilder do |f|
+  = f.errors
+  = f.text_field :name
+  = f.submit 'Save'

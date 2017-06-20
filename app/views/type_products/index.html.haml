@@ -1,0 +1,21 @@
+%h1.text-center Listing type_products
+.table-responsive
+  %table.table
+    %thead
+      %tr
+        %th Name
+        %th
+
+    %tbody
+      - @type_products.each do |type_product|
+        %tr
+          %td= type_product.name
+          %td.btn-toolbar
+            .btn-group
+              = link_to 'Show', type_product, class:"btn btn-raised btn-info"
+              = link_to 'Edit', edit_type_product_path(type_product), class:"btn btn-raised btn-success"
+              = link_to 'Destroy', type_product, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-raised btn-danger"
+
+%br
+
+= link_to 'New Type product', new_type_product_path, class:"btn btn-raised btn-default"

@@ -1,0 +1,9 @@
+= form_for @product,builder: BootstrapFormBuilder do |f|
+  = f.errors
+  = f.text_field :name
+  = f.text_field :description
+  = f.number_field :price
+  .form-group
+    = f.collection_select(:type_product_id, TypeProduct.all, :id, :name, {}, class: "form-control")
+  = f.file_field :avatar 
+  = f.submit 'Save'

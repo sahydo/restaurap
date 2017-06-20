@@ -1,0 +1,64 @@
+- if !@order.nil?
+  %h1.text-center
+    = @table.name
+  .col-md-4
+    %h2.text-center Order
+    - @cont = 0
+    - @order_products.each do |order_product|
+      - if @order.id == order_product.order_id
+        - @cont = @cont + 1
+    - if @cont == 0
+      %p Press 'ADD' in the product to add to the order
+
+    .table-responsive
+      %table.table
+        %thead
+          %tr
+            %th Products 
+            %th Actions
+        %tbody#table_products
+          - @order_products.each do |order_product|
+            - if @order.id == order_product.order_id
+              %tr
+                - product = @products.find(order_product.product_id)
+                %td= link_to product.name, total_products_of_path(product), class:"btn btn-defult"
+                %td= link_to 'DELETE', order_product, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-raised btn-danger"
+    = link_to "Finish order", order_products_path, class:"btn btn-primary"
+  .col-md-8
+    %h2.text-center Products
+    - @products.each do |product|
+      .col-md-4
+        .panel.panel-primary.ui-widget-content
+          .panel-heading
+            %p.text-center 
+              = product.name
+          .panel-body
+            = image_tag(product.avatar.url(:medium), size: "175x130", alt: "Product: #{product.name}")
+            - if !@order_product.nil?
+              = form_for @order_product, remote: true, builder: BootstrapFormBuilder, html: {id:"order_product-form", :"data-type" => "json"}  do |f|
+                = f.errors
+                = f.hidden_field :order_id, value: @order.id
+                = f.hidden_field :product_id, value: product.id
+                = f.submit 'Add' 
+-else
+  %h1.text-center Listing order_products
+  - @orders.each do |order|
+    .card.no-float.inline-block.bottom-space.big-padding
+      .col-md-3
+        %h1.card-title.big 
+          = @tables.find(order.table_id).name
+        .card-block
+          %h4
+            %strong 
+              Status:
+            = order.status
+          %p.card-text
+            %strong 
+              Order date:
+            = order.orderdate
+          - if order.wait?
+            = link_to "Change products", order_products_of_path(order), class:"btn btn-primary"
+      .col-md-9
+        - @order_products.each do |order_product|
+          - if order_product.order_id == order.id
+            = image_tag(@products.find(order_product.product_id).avatar.url(:thumb), size: "175x130", alt: "Order: #{order.id}")

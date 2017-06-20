@@ -1,0 +1,25 @@
+%h1.text-center Listing orders
+.table-responsive
+  %table.table
+    %thead
+      %tr
+        %th Table
+        %th Status
+        %th Orderdate
+        %th Actions
+
+    %tbody
+      - @orders.each do |order|
+        %tr
+          %td= @tables.find(order.table_id).name
+          %td= order.status
+          %td= order.orderdate
+          %td.btn-toolbar
+            .btn-group
+              = link_to 'Products', order_products_of_path(order), class:"btn btn-raised btn-info"
+              = link_to 'Change table', edit_order_path(order), class:"btn btn-raised btn-success"
+              = link_to 'Delete', order, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-raised btn-danger"
+
+%br
+
+= link_to 'New Order', new_order_path, class:"btn btn-raised btn-default"

@@ -1,0 +1,35 @@
+%h1.text-center Listing total_products
+.col-md-5.inline-block
+  -if !@product.nil?
+    %h2
+      Ingredients of 
+      = @product.name
+    = image_tag @product.avatar.url(:medium)
+    = link_to 'New Ingredient', new_total_product_path, class:"btn btn-raised btn-success"
+    
+.col-md-7.inline-block
+  - if !@total_products.empty?
+    .table-responsive
+      %table.table
+        %thead
+          %tr
+            %th Ingredient names
+            %th
+
+        %tbody
+          - @total_products.each do |total_product|
+            %tr
+              %td= @ingredients.find(total_product.ingredient_id).name
+              %td.btn-toolbar
+                .btn-group
+                  = link_to 'Destroy', total_product, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-raised btn-danger"
+  - else
+    -if !@product.nil?
+      .alert.alert-dismissible.alert-danger
+        %h2
+          There are not ingredients to 
+          = @product.name
+    
+  %p= will_paginate @total_products 
+
+

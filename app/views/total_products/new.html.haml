@@ -1,0 +1,6 @@
+- if !@product.nil?
+    %h1.text-center 
+        = @product.name
+- else 
+    %h1.text-center New total_product
+= render 'form'

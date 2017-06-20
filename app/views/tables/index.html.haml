@@ -1,0 +1,21 @@
+%h1.text-center Listing tables
+.table-responsive
+  %table.table
+    %thead
+      %tr
+        %th Name
+        %th
+
+    %tbody
+      - @tables.each do |table|
+        %tr
+          %td= table.name
+          %td.btn-toolbar
+            .btn-group
+              = link_to 'Show', table, class:"btn btn-raised btn-info"
+              = link_to 'Edit', edit_table_path(table), class:"btn btn-raised btn-success"
+              = link_to 'Destroy', table, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-raised btn-danger"
+%p= will_paginate @tables 
+%br
+
+= link_to 'New Table', new_table_path, class:"btn btn-raised btn-default"

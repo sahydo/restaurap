@@ -1,0 +1,59 @@
+%div(hidden= true)
+  = form_for @total_product,builder: BootstrapFormBuilder do |f|
+    = f.errors
+    - if !@product.nil?
+      %div(hidden= true)
+        = f.label :product_id
+        = f.text_field :product_id, value: @product.id
+    - else
+      .form-group
+        = f.label :product_id
+        = f.collection_select(:product_id, Product.all, :id, :name, {}, class: "form-control")
+    .form-group
+      = f.label :ingredient_id
+      = f.collection_select(:ingredient_id, Ingredient.all, :id, :name, {}, class: "form-control")
+    = f.submit 'Save'
+= form_tag(new_total_product_path, {:method => :get}) do
+  .form-group
+    = select_tag :product_id, options_from_collection_for_select(Product.all, "id", "name"), include_blank: "Select a product", :onchange => "this.form.submit();", class: "form-control" 
+.col-md-4
+  - if !@total_products.nil?
+    %h2.text-center Ingredients in product
+    .table-responsive
+      %table.table
+        %thead
+          %tr
+            %th ingredient name
+            %th actions
+        %tbody#table_ingredients
+          - @total_products.each do |total_product|
+            %tr
+              %td= Ingredient.find(total_product.ingredient_id).name
+              %td= link_to 'DELETE', total_product, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-raised btn-danger" 
+    
+    
+  - else
+    %h2 Select a product
+  - if !@product.nil?
+    = link_to 'Back', total_products_of_path(@product), class:"btn btn-raised btn-default"
+  - else
+    = link_to 'Back', total_products_path, class:"btn btn-raised btn-default"
+.col-md-8
+  %h2.text-center Ingredients available
+  .table-responsive
+    %table.table
+      %thead
+        %tr
+          %th ingredient name
+          %th actions
+      %tbody
+        - @ingredients.each do |ingredient|
+          %tr
+            %td= ingredient.name 
+            %td 
+              - if !@product.nil?
+                = form_for @total_product, remote: true, builder: BootstrapFormBuilder, html: {id:"total_product-form", :"data-type" => "json"}  do |f|
+                  = f.errors
+                  = f.hidden_field :product_id, value: @product.id
+                  = f.hidden_field :ingredient_id, value: ingredient.id
+                  = f.submit 'Add' 

@@ -1,0 +1,15 @@
+= form_for @user,builder: BootstrapFormBuilder do |f|
+  = f.errors
+  = f.email_field :email
+  = f.text_field :name
+  = f.text_field :lastname
+  = f.text_field :docid
+  = f.number_field :pin
+  = f.text_field :username
+  = f.password_field :password
+  = f.password_field :password_confirmation
+  .form-group
+    = f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}, {}, class: "form-control") 
+  .form-group
+    = f.file_field :avatar
+  = f.submit 'Save'

@@ -1,0 +1,11 @@
+
+%p
+  %b Name:
+  = @ingredient.name
+%p
+  %b Text:
+  = @ingredient.description
+
+= link_to 'Edit', edit_ingredient_path(@ingredient), class:"btn btn-raised btn-default"
+\|
+= link_to 'Back', ingredients_path, class:"btn btn-raised btn-default"

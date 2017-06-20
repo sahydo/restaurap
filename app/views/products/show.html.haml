@@ -1,0 +1,21 @@
+.card.no-float.inline-block.bottom-space.big-padding
+  .row
+    .col-md-6
+      = image_tag @product.avatar.url(:medium)
+    .col-md-6
+      %p
+        %b Name:
+        = @product.name
+      %p
+        %b Description:
+        = @product.description
+      %p
+        %b Price($COP):
+        = @product.price
+      %p
+        %b Type:
+        = @typeProducts.find(@product.type_product_id).name
+
+  = link_to 'Edit', edit_product_path(@product), class:"btn btn-raised btn-default"
+  \|
+  = link_to 'Back <', products_path, class:"btn btn-raised btn-default"

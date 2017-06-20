@@ -1,0 +1,33 @@
+# == Schema Information
+#
+# Table name: orders
+#
+#  id         :integer          not null, primary key
+#  orderdate  :datetime         not null
+#  pinwaiter  :integer          not null
+#  pinchef    :integer
+#  attenddate :datetime
+#  payvalue   :integer          not null
+#  status     :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  table_id   :integer
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  orderdate: 2017-06-12 22:59:12
+  pinwaiter: 1
+  pinchef: 1
+  attenddate: 2017-06-12 22:59:12
+  payvalue: 1
+  status: 1
+
+two:
+  orderdate: 2017-06-12 22:59:12
+  pinwaiter: 1
+  pinchef: 1
+  attenddate: 2017-06-12 22:59:12
+  payvalue: 1
+  status: 1

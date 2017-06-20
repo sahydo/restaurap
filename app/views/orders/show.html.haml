@@ -1,0 +1,22 @@
+%p
+  %b Orderdate:
+  = @order.orderdate
+%p
+  %b Pinwaiter:
+  = @order.pinwaiter
+%p
+  %b Pinchef:
+  = @order.pinchef
+%p
+  %b Attenddate:
+  = @order.attenddate
+%p
+  %b Payvalue:
+  = @order.payvalue
+%p
+  %b Status:
+  = @order.status
+
+= link_to 'Edit', edit_order_path(@order), class:"btn btn-raised btn-default"
+\|
+= link_to 'Back', orders_path, class:"btn btn-raised btn-default"

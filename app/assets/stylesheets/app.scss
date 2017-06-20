@@ -1,0 +1,130 @@
+
+$green: #16a085;
+$grey: #5A6576;
+$other-grey: #E7EcEE;
+$blue: #085CC5;
+$red: #D2527F;
+$light-blue: #3498D8;
+
+
+/*Texto*/
+.bold{
+	font-weight:bold;	
+}
+
+/*Colores*/
+
+.white{
+	background-color: white;
+}
+.white-text{
+	color: white;
+}
+
+.green{
+	background-color: $green;
+}
+.green-text{
+	color: $green;
+}
+
+.blue{
+	background-color: $blue;
+}
+.blue-text{
+	color: $blue;
+}
+
+.light-blue{
+	background-color: $light-blue;
+}
+.light-blue-text{
+	color: $light-blue;
+}
+
+
+.red{
+	background-color: $red;
+}
+.red-text{
+	color: $red;
+}
+
+.grey{
+	background-color: $grey;
+}
+.grey-text{
+	color: $grey;
+}
+
+.other-grey{
+	background-color: $other-grey;
+}
+.other-grey-text{
+	color: $other-grey;
+}
+/*Paddings*/
+.large-padding{
+	padding:5px 10px;
+}
+.big-padding{
+	padding:2em; 
+}
+.medium-padding{
+	padding:1em; 
+}
+.no-padding{
+	padding:0;
+}
+.left-space{
+	padding-right: 1em;
+}
+/* Margins */
+
+.no-margin{
+	margin:0;	
+}
+.top-space{
+	margin-top: 1em;
+}
+
+.bottom-space{
+	margin-bottom:2em;
+}
+/* Alineamiento */
+.absolute{
+	position: absolute;
+}
+.no-float{
+	float: none !important;
+}
+.in-top{
+	vertical-align:top !important;
+}
+.inline-block{
+	float: none !important;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: -4px;
+}
+
+/*Tamaños*/
+.small{
+	font-size: 12px;
+}
+.medium{
+	font-size:1.5em;
+}
+.normal{
+	font-size: 1.2em;
+}
+.big{
+	font-size:3em;
+}
+.bigger{
+	font-size:4em;
+}
+.ultra-big{
+	font-size: 7em;
+}
+#droppable { width: 100%; height: 300px; padding: 0.5em; float: left; margin: 10px; }

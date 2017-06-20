@@ -1,0 +1,17 @@
+.text-center
+    %p= will_paginate @products 
+- @products.each do |product|
+    .col-md-6
+        .card.inline-block.bottom-space.big-padding
+            = image_tag product.avatar.url(:medium)
+            .card-block
+            %h4.card-title.big 
+                = product.name
+            %p.card-text
+                = product.description
+                = product.price
+                = @typeProducts.find(product.type_product_id).name
+%br
+
+
+

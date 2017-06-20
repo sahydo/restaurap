@@ -1,0 +1,23 @@
+%h1.text-center Listing ingredients
+.table-responsive
+  %table.table
+    %thead
+      %tr
+        %th Name
+        %th description
+        %th
+
+    %tbody
+      - @ingredients.each do |ingredient|
+        %tr
+          %td= ingredient.name
+          %td= ingredient.description
+          %td.btn-toolbar
+            .btn-group
+              = link_to 'Show', ingredient, class:"btn btn-raised btn-info"
+              = link_to 'Edit', edit_ingredient_path(ingredient), class:"btn btn-raised btn-success"
+              = link_to 'Destroy', ingredient, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-raised btn-danger"
+%p= will_paginate @ingredients 
+%br
+
+= link_to 'New Ingredient', new_ingredient_path, class:"btn btn-raised btn-default"

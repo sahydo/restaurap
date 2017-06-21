@@ -1,26 +1,27 @@
-=image_tag @user.avatar.url(:medium)
-
-%p 
-    %b Email:
-    =@user.email
-%p 
-    %b Name:
-    =@user.name
-%p  
-    %b Lastname:
-    =@user.lastname
-%p  
-    %b Document:
-    =@user.docid
-%p  
-    %b Username:
-    =@user.username
-%p  
-    %b Pin:
-    =@user.pin
-%p  
-    %b Role:
-    =@user.role
-= link_to 'Edit', edit_user_path(@user), class:"btn btn-raised btn-default"
-\|
-= link_to 'Back', users_path, class:"btn btn-raised btn-default"
+.panel.panel-primary
+    .panel-heading
+        %h1.text-center
+            =@user.name
+            =@user.lastname
+    .panel-body
+        .col-md-4
+            =image_tag @user.avatar.url, class: "img-responsive", alt: "Imagen de : #{@user.name}"
+        .col-md-8
+            %p 
+                %b Email:
+                =@user.email
+            %p  
+                %b Document:
+                =@user.docid
+            %p  
+                %b Username:
+                =@user.username
+            %p  
+                %b Pin:
+                =@user.pin
+            %p  
+                %b Role:
+                =@user.role
+            = link_to 'Edit', edit_user_path(@user), class:"btn btn-raised btn-primary"
+            \|
+            = link_to 'Back', users_path, class:"btn btn-raised btn-default"

@@ -26,10 +26,10 @@
           %td= user.role
           %td.btn-toolbar
             .btn-group
-              = link_to 'Show', user, class:"btn btn-raised btn-info"
+              = link_to 'Show', user, class: "btn btn-raised btn-info"
               = link_to 'Edit', edit_user_path(user), class:"btn btn-raised btn-success"
               = link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-raised btn-danger"
 
 %br
 
-= link_to 'New User', new_user_path, class:"btn btn-raised btn-default"
+= link_to 'New User', new_user_path, class:"btn btn-raised btn-primary"

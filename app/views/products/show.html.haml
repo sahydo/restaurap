@@ -1,8 +1,8 @@
 .card.no-float.inline-block.bottom-space.big-padding
   .row
-    .col-md-6
-      = image_tag @product.avatar.url(:medium)
-    .col-md-6
+    .col-md-5
+      = image_tag @product.avatar.url, class: "img-responsive"
+    .col-md-7
       %p
         %b Name:
         = @product.name
@@ -16,6 +16,6 @@
         %b Type:
         = @typeProducts.find(@product.type_product_id).name
 
-  = link_to 'Edit', edit_product_path(@product), class:"btn btn-raised btn-default"
+  = link_to 'Edit', edit_product_path(@product), class:"btn btn-raised btn-primary"
   \|
-  = link_to 'Back <', products_path, class:"btn btn-raised btn-default"
+  = link_to 'Back', products_path, class:"btn btn-raised btn-default"

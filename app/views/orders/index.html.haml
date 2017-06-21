@@ -6,20 +6,34 @@
         %th Table
         %th Status
         %th Orderdate
-        %th Actions
+        %th Attenddate
+        -if current_user.admin? or current_user.waiter?
+          %th Actions
 
     %tbody
       - @orders.each do |order|
-        %tr
-          %td= @tables.find(order.table_id).name
-          %td= order.status
-          %td= order.orderdate
-          %td.btn-toolbar
-            .btn-group
-              = link_to 'Products', order_products_of_path(order), class:"btn btn-raised btn-info"
-              = link_to 'Change table', edit_order_path(order), class:"btn btn-raised btn-success"
-              = link_to 'Delete', order, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-raised btn-danger"
-
+        - if (current_user.pin == order.pinwaiter) or current_user.admin?
+          %tr
+            - if order.wait? and (current_user.waiter? or current_user.client?) 
+              %td= link_to @tables.find(order.table_id).name, order_products_of_path(order), class: "btn btn-success"
+            - else
+              %td=@tables.find(order.table_id).name
+            %td= order.status
+            %td= order.orderdate
+            %td= order.attenddate
+            -if current_user.admin? or current_user.waiter?
+              %td.btn-toolbar
+                .btn-group
+                  - if order.wait?
+                    = link_to 'Products', order_products_of_path(order), class:"btn btn-raised btn-info"
+                    = link_to 'Change table', edit_order_path(order), class:"btn btn-raised btn-success"
+                    = link_to 'Delete', order, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-raised btn-danger"
+                  - if order.process?
+                    = link_to 'Change table', edit_order_path(order), class:"btn btn-raised btn-success"
+                    = link_to 'Delete', order, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-raised btn-danger"
+                  - if order.ready?
+                    = link_to 'Delete', order, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-raised btn-danger"
+%p= will_paginate @orders 
 %br
 
-= link_to 'New Order', new_order_path, class:"btn btn-raised btn-default"
+= link_to 'New Order', new_order_path, class:"btn btn-raised btn-primary"

@@ -27,9 +27,9 @@ class TypeProductsController < ApplicationController
   # POST /type_products
   # POST /type_products.json
   def create
-    authorize @type_product
     @type_product = TypeProduct.new(type_product_params)
 
+    authorize @type_product
     respond_to do |format|
       if @type_product.save
         format.html { redirect_to @type_product, notice: 'Type product was successfully created.' }

@@ -6,14 +6,16 @@ class OrderProductsController < ApplicationController
   # GET /order_products.json
   def index
     @order_products = OrderProduct.all
+    @tables = Table.all
+    @orders = Order.order(created_at: :desc)
+    @products = Product.all
+    @total_products = TotalProduct.all
+    @ingredients = Ingredient.all
     if params[:id].present?
       @order = Order.find(params[:id])
       @table = Table.find(@order.table_id)
       @order_product = OrderProduct.new
     end
-    @tables = Table.all
-    @orders = Order.all
-    @products = Product.all
   end
 
   # GET /order_products/1

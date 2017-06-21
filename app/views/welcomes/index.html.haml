@@ -3,7 +3,7 @@
 - @products.each do |product|
     .col-md-6
         .card.no-float.inline-block.bottom-space.big-padding
-            = image_tag product.avatar.url(:medium)
+            = image_tag(product.avatar.url, alt: "Product: #{product.name}", class: "img-responsive")
             .card-block
             %h4.card-title.big 
                 = product.name

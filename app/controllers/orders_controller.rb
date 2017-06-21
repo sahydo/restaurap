@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.order(created_at: :desc).paginate(:page => params[:page], :per_page => 8)
     @tables = Table.all
   end
 
@@ -30,11 +30,11 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
+        format.html { redirect_to order_products_of_path(@order), notice: 'Order was successfully created.' }
+        format.json { render :show, status: :created, location: order_products_of_path(@order) }
       else
         format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+        format.json { render json: order_products_of_path(@order).errors, status: :unprocessable_entity }
       end
     end
   end
@@ -44,11 +44,11 @@ class OrdersController < ApplicationController
   def update
     respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
-        format.json { render :show, status: :ok, location: @order }
+        format.html { redirect_to orders_path, notice: 'Order was successfully updated.' }
+        format.json { render :show, status: :ok, location: orders_path }
       else
         format.html { render :edit }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+        format.json { render json: orders_path.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -71,6 +71,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:orderdate, :pinwaiter, :pinchef, :attenddate, :payvalue, :status, :table_id)
+      params.require(:order).permit(:id,:orderdate, :pinwaiter, :pinchef, :attenddate, :payvalue, :status, :table_id)
     end
 end

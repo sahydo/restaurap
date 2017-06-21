@@ -1,9 +1,13 @@
 = form_for @order,builder: BootstrapFormBuilder do |f|
   = f.errors
-  - if current_user.waiter?
-    = f.number_field :pinwaiter, value: current_user.pin
-  - else
-    = f.number_field :pinwaiter
-  .form-group
-    = f.collection_select(:table_id, Table.all, :id, :name, {}, class: "form-control")
-  = f.submit 'Save'
+  = f.number_field :pinwaiter, value: current_user.pin
+  - if !current_user.client?
+    .form-group
+      = f.collection_select(:table_id, Table.all, :id, :name, {}, class: "form-control")
+    = f.submit 'Next'
+  -else
+    .form-group
+      = f.select :table_id, options_for_select([['Domicilio', 0]]), {}, class: "form-control"
+    = f.submit 'Next'
+
+  

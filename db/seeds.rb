@@ -47,3 +47,4 @@
 #Ingredient.create(name: 'Salsa de tomate', description: 'Salsa complementaria')
 #Ingredient.create(name: 'Salsa de ajo', description: 'Salsa complementaria')
 #Ingredient.create(name: 'Salsa rosada', description: 'Salsa complementaria')
+#Table.create(name: "Domicilio", id: 0)

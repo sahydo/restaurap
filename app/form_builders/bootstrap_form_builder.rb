@@ -40,7 +40,7 @@ class BootstrapFormBuilder < ActionView::Helpers::FormBuilder
 
 	def submit(*args)
 		content_tag :div do
-			super(*args,class:"btn btn-success")
+			super(*args,class:"btn btn-primary")
 		end
 	end
 end

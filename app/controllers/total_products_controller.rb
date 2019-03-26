@@ -38,7 +38,7 @@ class TotalProductsController < ApplicationController
       @total_products = TotalProduct.where("product_id = #{params[:product_id]}")
     end
     @products = Product.all
-    @ingredients = Ingredient.all
+    @ingredients = Ingredient.all.paginate(:page => params[:page], :per_page => 5)
     
     @total_product = TotalProduct.new
     authorize @total_product

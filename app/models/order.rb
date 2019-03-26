@@ -12,6 +12,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  table_id   :integer
+#  address    :string
 #
 
 class Order < ActiveRecord::Base

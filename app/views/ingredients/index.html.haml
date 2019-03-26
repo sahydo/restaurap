@@ -17,7 +17,7 @@
               = link_to 'Show', ingredient, class:"btn btn-raised btn-info"
               = link_to 'Edit', edit_ingredient_path(ingredient), class:"btn btn-raised btn-success"
               = link_to 'Destroy', ingredient, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-raised btn-danger"
-%p= will_paginate @ingredients 
+%p= will_paginate @ingredients, renderer: BootstrapPagination::Rails  
 %br
 
 = link_to 'New Ingredient', new_ingredient_path, class:"btn btn-raised btn-primary"

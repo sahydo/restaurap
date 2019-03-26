@@ -8,6 +8,7 @@
   -else
     .form-group
       = f.select :table_id, options_for_select([['Domicilio', 0]]), {}, class: "form-control"
+    = f.text_field :address
     = f.submit 'Next'
 
   

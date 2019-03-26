@@ -35,13 +35,13 @@
   .col-md-8
     %h2.text-center Products
     - @products.each do |product|
-      .col-md-4
+      .col-md-4.inline-block
         .panel.panel-primary.ui-widget-content
           .panel-heading
             %p.text-center 
               = product.name
           .panel-body
-            = image_tag(product.avatar.url(:medium), size: "175x130", alt: "Product: #{product.name}")
+            = image_tag(product.avatar.url, class: "img-responsive", alt: "Product: #{product.name}")
             %p
               %strong 
                 Price:
@@ -57,68 +57,90 @@
   %h1.text-center Listing order_products
   - @orders.each do |order|
     - if !order.ready?
-      .card.no-float.inline-block.bottom-space.big-padding(id= "card-#{order.id}")
-        .col-md-3
-          %h1.card-title.big 
-            = @tables.find(order.table_id).name
-          .card-block
-            %h4
-              %strong 
-                Status:
-            %p(id= "status-#{order.id}")
-              = order.status
-            %p.card-text
-              %strong 
-                Order date:
-              = order.orderdate
-            - payvalue = 0
-            %p.card-text
-              %strong 
-                Pay value:
-                - @order_products.each do |order_product|
-                  - if order.id == order_product.order_id
-                    - payvalue = payvalue + @products.find(order_product.product_id).price
-                - order.payvalue = payvalue
-                = order.payvalue
-            - if order.wait?
-              = form_for order, remote: true, html: {id:"order-ready-form",hidden: true , :"data-type" => "json"}  do |f|
-                = f.hidden_field :pinchef, value: current_user.pin
-                = f.hidden_field :status, value: :ready
-                = f.hidden_field :payvalue, value: order.payvalue
-                = f.submit 'Ready', class: "btn btn-primary"
-              - if current_user.waiter?
-                = link_to "Change products", order_products_of_path(order), class:"btn btn-primary"
-              - elsif current_user.chef?
-                = form_for order, remote: true, html: {id:"order-process-form", :"data-type" => "json"}  do |f|
+      - if (order.pinwaiter == current_user.pin) or current_user.chef?
+        .card.no-float.inline-block.bottom-space.big-padding(id= "card-#{order.id}")
+          .col-md-3
+            %h1.card-title.big 
+              = @tables.find(order.table_id).name
+            .card-block
+              %h4
+                %strong 
+                  Status:
+              %p(id= "status-#{order.id}")
+                = order.status
+              - if order.wait?
+                .progress.progress-striped
+                  .progress-bar.progress-bar-info(style="width: 40%")
+              - if order.process?
+                .progress.progress-striped
+                  .progress-bar.progress-bar-warning(style="width: 80%")
+              %p.card-text
+                %strong 
+                  Order date:
+                = order.orderdate
+              - payvalue = 0
+              %p.card-text
+                %strong 
+                  Pay value:
+                  - @order_products.each do |order_product|
+                    - if order.id == order_product.order_id
+                      - payvalue = payvalue + @products.find(order_product.product_id).price
+                  - order.payvalue = payvalue
+                  = order.payvalue
+              - if !order.address.nil?
+                %p.card-text
+                  %strong 
+                    Address:
+                  = order.address
+              - if order.wait?
+                = form_for order, remote: true, html: {id:"order-ready-form",hidden: true , :"data-type" => "json"}  do |f|
                   = f.hidden_field :pinchef, value: current_user.pin
-                  = f.hidden_field :status, value: :process
+                  = f.hidden_field :status, value: :ready
                   = f.hidden_field :payvalue, value: order.payvalue
-                  = f.submit 'Attend', class: "btn btn-success"
-            - if order.process? and current_user.chef?
-              = form_for order, remote: true, html: {id:"order-ready-form", :"data-type" => "json"}  do |f|
-                = f.hidden_field :pinchef, value: current_user.pin
-                = f.hidden_field :status, value: :ready
-                = f.hidden_field :payvalue, value: order.payvalue
-                = f.submit 'Ready', class: "btn btn-primary"
-        .col-md-9
-          - @order_products.each do |order_product|
-            - if order_product.order_id == order.id
-              -product = @products.find(order_product.product_id)
-              .col-md-4.inline-block
-                .panel.panel-primary.ui-widget-content
-                  .panel-heading
-                    %p.text-center 
-                      = product.name
-                  .panel-body
-                    = image_tag(product.avatar.url, class: "img-responsive", size: "200x150", alt: "Product: #{product.name}")
-                    %p
-                      %strong 
-                        Price:
-                      $
-                      = product.price
-                    %ol
-                    - @total_products.each do |total_product|
-                      -if total_product.product_id == product.id
-                        - ingredient = @ingredients.find(total_product.ingredient_id)
-                        %li
-                          = ingredient.name
+                  = f.submit 'Ready', class: "btn btn-primary"
+                - if current_user.waiter?
+                  = link_to "Change products", order_products_of_path(order), class:"btn btn-primary"
+                - elsif current_user.chef?
+                  = form_for order, remote: true, html: {id:"order-process-form", :"data-type" => "json"}  do |f|
+                    = f.hidden_field :pinchef, value: current_user.pin
+                    = f.hidden_field :status, value: :process
+                    = f.hidden_field :attenddate, value: Time.now
+                    = f.hidden_field :payvalue, value: order.payvalue
+                    = f.submit 'Attend', class: "btn btn-success"
+              - if order.process? and current_user.chef?
+                = form_for order, remote: true, html: {id:"order-ready-form", :"data-type" => "json"}  do |f|
+                  = f.hidden_field :pinchef, value: current_user.pin
+                  = f.hidden_field :status, value: :ready
+                  = f.hidden_field :payvalue, value: order.payvalue
+                  = f.submit 'Ready', class: "btn btn-primary"
+          .col-md-9
+            - @order_products.each do |order_product|
+              - if order_product.order_id == order.id
+                -product = @products.find(order_product.product_id)
+                .col-md-4.inline-block
+                  .panel.panel-primary.ui-widget-content
+                    .panel-heading
+                      %p.text-center 
+                        = product.name
+                    .panel-body.image
+                      = image_tag(product.avatar.url, class: "img-responsive", size: "200x150", alt: "Product: #{product.name}")
+                      %p
+                        %strong 
+                          Price:
+                        $
+                        = product.price
+                      .description{"hidden"=>"true"}
+                        %ol
+                        - @total_products.each do |total_product|
+                          -if total_product.product_id == product.id
+                            - ingredient = @ingredients.find(total_product.ingredient_id)
+                            %li
+                              = ingredient.name
+  :javascript
+      $(document).ready( function() {
+        $(document).ready(function() {
+          setTimeout(function(){
+            window.location.reload(0);
+          }, 20000);
+        });
+      });

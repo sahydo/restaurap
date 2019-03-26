@@ -12,6 +12,5 @@
  *= require common
  *= require bootstrap-material-design
  *= require app
- *= require jquery-ui
  *= require_self
  */

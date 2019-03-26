@@ -18,4 +18,3 @@ $(document).on "ajax:success", "form#order_product-form", (ev,data) ->
             val = parseInt($('#payvalue').text())
             valTotal = parseInt(data_aux.price)+val
             $('#payvalue').text(valTotal)
-            

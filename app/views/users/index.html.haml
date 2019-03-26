@@ -31,5 +31,5 @@
               = link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-raised btn-danger"
 
 %br
-
+%p= will_paginate @users, renderer: BootstrapPagination::Rails 
 = link_to 'New User', new_user_path, class:"btn btn-raised btn-primary"

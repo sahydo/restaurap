@@ -17,7 +17,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # jquery ui 
-gem 'jquery-ui-rails'
+#gem 'jquery-ui-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -62,4 +62,6 @@ gem 'paperclip'
 gem 'pundit'
 #Para la paginación
 gem 'will_paginate', '~> 3.1.0'
+#Estilos para la paginación
+gem 'will_paginate-bootstrap'
 gem 'bcrypt-ruby', '3.1.1.rc1', :require => 'bcrypt'

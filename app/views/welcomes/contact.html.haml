@@ -1,2 +1,29 @@
-%h1 Welcomes#contact
-%p Find me in app/views/welcomes/contact.html.haml
+.container-fluid.bg-grey
+  %h2.text-center
+    CONTACT
+  .row
+    .col-sm-5
+      %p Contact us and we'll get back to you within 24 hours
+      %p 
+        %b
+          Address:
+        Popayán
+      %p 
+        %b 
+          Telephone
+        3176349898
+      %p 
+        %b
+          Email:
+        santiagodorado@unicauca.edu.co
+    .col-sm-7
+      .row
+        .col-sm-6.form-group
+          %input.form-control#name{"name"=>"name" ,"placeholder"=>"Name" ,"type"=>"text" ,"required"=> "true"}
+        .col-sm-6.form-group
+          %input.form-control#email{"name"=>"email" ,"placeholder"=>"Email" ,"type"=>"email" ,"required"=> "true"}
+      %textarea.form-control#comments{"name"=>"comments" ,"placeholder"=>"Comment" ,"rows"=>"5"}
+      .row
+        .col-sm-12.form-group
+          %button.btn.btn-primary.pull-right(type="submit")
+            Send
